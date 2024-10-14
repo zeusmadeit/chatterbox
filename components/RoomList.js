@@ -33,14 +33,14 @@ export default function RoomList({ onSelectRoom, selectedRoom }) {
           <li key={room.id} className={`flex items-center justify-between p-2 rounded cursor-pointer ${selectedRoom === room.id ? 'bg-gray-700' : 'hover:bg-gray-700'}`}>
             <span 
               onClick={() => onSelectRoom(room.id)}
-              className="text-discord-light flex-1"
+              className="text-discord-light flex-1 text-sm sm:text-base"
             >
               {room.name}
             </span>
             {room.createdBy === user.uid && (
               <button 
                 onClick={() => handleDeleteRoom(room.id)}
-                className="ml-2 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
+                className="ml-2 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition-colors text-xs sm:text-sm"
               >
                 Delete
               </button>
