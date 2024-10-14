@@ -10,28 +10,41 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
-  const { user } = useAuth();
+  const {user} = useAuth();
 
   return (
-    <div className="flex h-screen bg-gray-100">
-      {/* Sidebar */}
-      <div className="w-16 md:w-64 bg-gray-900 text-white flex flex-col">
-        <div className="p-4">
-          <h1 className="text-xl font-bold">Discord Clone</h1>
+    <div className="flex h-screen bg-[var(--background)]">
+      {/* Servers sidebar */}
+      <div className="w-16 md:w-20 bg-[var(--serversbg)] flex flex-col items-center py-4 space-y-4">
+        {/* Home button */}
+        <Link href="/" className="w-12 h-12 bg-[var(--channelsbg)] rounded-full flex items-center justify-center text-white hover:bg-[var(--text-link)]">
+          H
+        </Link>
+        {/* Server list would go here */}
+      </div>
+
+      {/* Channels sidebar */}
+      <div className="w-60 bg-[var(--channelsbg)] text-[var(--text-normal)] flex flex-col">
+        <div className="p-4 border-b border-gray-700">
+          <h1 className="text-xl font-bold">ChatterBox</h1>
         </div>
-        <nav className="flex-1">
-          <Link href="/" className="block p-4 hover:bg-gray-800">Home</Link>
+        <nav className="flex-1 overflow-y-auto">
+          <Link href="/" className="block p-2 hover:bg-gray-700">Home</Link>
           {user && (
             <>
-              <Link href="/servers" className="block p-4 hover:bg-gray-800">Servers</Link>
-              <Link href="/direct-messages" className="block p-4 hover:bg-gray-800">Direct Messages</Link>
+              <Link href="/servers" className="block p-2 hover:bg-gray-700">Servers</Link>
+              <Link href="/direct-messages" className="block p-2 hover:bg-gray-700">Direct Messages</Link>
             </>
           )}
         </nav>
         {user ? (
-          <button onClick={() => signOut(auth)} className="p-4 hover:bg-gray-800">Sign Out</button>
+          <div className="p-4 border-t border-gray-700 flex items-center">
+            <img src={user.photoURL || '/default-avatar.png'} alt="User avatar" className="w-8 h-8 rounded-full mr-2" />
+            <span>{user.displayName || user.email}</span>
+            <button onClick={() => signOut(auth)} className="ml-auto text-[var(--text-muted)] hover:text-[var(--text-normal)]">Sign Out</button>
+          </div>
         ) : (
-          <Link href="/auth" className="p-4 hover:bg-gray-800">Sign In</Link>
+          <Link href="/auth" className="p-4 border-t border-gray-700 hover:bg-gray-700">Sign In</Link>
         )}
       </div>
 

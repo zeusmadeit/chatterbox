@@ -3,8 +3,18 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #36393f;
+  --channelsbg: #2f3136;
+  --serversbg: #202225;
+  --text-normal: #dcddde;
+  --text-muted: #72767d;
+  --text-link: #00b0f4;
+  --channeltextarea-background: #40444b;
+}
+
+body {
+  color: var(--text-normal);
+  background: var(--background);
 }
 
 @media (prefers-color-scheme: dark) {
