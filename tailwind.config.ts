@@ -11,6 +11,9 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        'discord-dark': '#36393f',
+        'discord-light': '#dcddde',
+        'discord-blue': '#7289da',
       },
     },
   },
