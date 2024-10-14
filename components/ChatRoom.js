@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
-import { db } from '@/lib/firebase';
+import { db } from '../lib/firebase';
 import { collection, addDoc, onSnapshot, query, orderBy, limit } from 'firebase/firestore';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function ChatRoom({ roomId }) {
   const [messages, setMessages] = useState([]);
@@ -47,9 +47,9 @@ export default function ChatRoom({ roomId }) {
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.map(msg => (
           <div key={msg.id} className={`flex ${msg.userId === user.uid ? 'justify-end' : 'justify-start'}`}>
-            <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded ${msg.userId === user.uid ? 'bg-discord-blue text-white' : 'bg-gray-700 text-discord-light'}`}>
-              <p className="font-semibold">{msg.userName}</p>
-              <p>{msg.text}</p>
+            <div className={`max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl px-4 py-2 rounded ${msg.userId === user.uid ? 'bg-discord-blue text-white' : 'bg-gray-700 text-discord-light'}`}>
+              <p className="font-semibold text-sm">{msg.userName}</p>
+              <p className="text-sm sm:text-base">{msg.text}</p>
             </div>
           </div>
         ))}
@@ -62,9 +62,9 @@ export default function ChatRoom({ roomId }) {
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             placeholder="Type a message"
-            className="flex-1 p-2 rounded bg-gray-700 text-discord-light"
+            className="flex-1 p-2 rounded bg-gray-700 text-discord-light text-sm sm:text-base"
           />
-          <button type="submit" className="px-4 py-2 rounded bg-discord-blue text-white font-semibold hover:bg-blue-600 transition-colors">
+          <button type="submit" className="px-4 py-2 rounded bg-discord-blue text-white font-semibold hover:bg-blue-600 transition-colors text-sm sm:text-base">
             Send
           </button>
         </div>
