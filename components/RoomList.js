@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { db } from '../lib/firebase';
+import { db } from '@/lib/firebase';
 import { collection, onSnapshot, deleteDoc, doc } from 'firebase/firestore';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function RoomList({ onSelectRoom, selectedRoom }) {
   const [rooms, setRooms] = useState([]);
