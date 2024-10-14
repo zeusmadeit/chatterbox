@@ -1,14 +1,25 @@
 'use client';
 
-import AuthForm from '@/components/AuthForm';
+import { useState } from 'react';
+import Layout from '@/components/Layout';
+import SignIn from '@/components/SignIn';
+import SignUp from '@/components/SignUp';
 
-export default function AuthPage() {
+export default function Auth() {
+  const [isSignIn, setIsSignIn] = useState(true);
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-discord-dark">
-      <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-96">
-        <h1 className="text-3xl font-bold mb-6 text-center text-discord-light">Welcome to ChatterBox</h1>
-        <AuthForm />
+    <Layout>
+      <div className="p-4 max-w-md mx-auto">
+        <h1 className="text-2xl font-bold mb-4">{isSignIn ? 'Sign In' : 'Sign Up'}</h1>
+        {isSignIn ? <SignIn /> : <SignUp />}
+        <button 
+          onClick={() => setIsSignIn(!isSignIn)} 
+          className="mt-4 text-blue-500 underline"
+        >
+          {isSignIn ? 'Need an account? Sign Up' : 'Already have an account? Sign In'}
+        </button>
       </div>
-    </div>
+    </Layout>
   );
 }
