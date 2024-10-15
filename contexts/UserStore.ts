@@ -10,11 +10,11 @@ interface useUserStoreInterface {
   signOut: () => void;
 }
 
-export const useUserStore = create<useUserStoreInterface>((set) => ({
-  displayName: null,
-  photoURL: null,
-  email: '',
-  setActiveRoom: (room: string) => set({ activeRoom: room }),
-  resetRoom: () => set({ activeRoom: null }),
-}))
+// export const useUserStore = create<useUserStoreInterface>((set) => ({
+//   displayName: null,
+//   photoURL: null,
+//   email: '',
+//   setActiveRoom: (room: string) => set({ activeRoom: room }),
+//   resetRoom: () => set({ activeRoom: null }),
+// }))
 

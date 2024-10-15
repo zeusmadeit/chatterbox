@@ -1,13 +1,23 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useRouter } from 'next/navigation';
+import { auth } from '@/lib/firebase';
 import SignIn from '@/components/SignIn';
 import SignUp from '@/components/SignUp';
 import { Icons } from '@/components/Icons';
 
 export default function Auth() {
+  const [user] = useAuthState(auth);
   const [isSignIn, setIsSignIn] = useState(true);
   const changeIsSignIn = () => setIsSignIn(!isSignIn);
+  const router = useRouter();
+
+  if (user) {
+    router.replace('/rooms');
+    return null;
+  }
 
   return (
   <div className='h-screen flex flex-col items-center justify-center align-center bg-discord_blue'>

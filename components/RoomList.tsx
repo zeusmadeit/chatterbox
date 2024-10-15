@@ -27,15 +27,16 @@ const RoomList: React.FC = () => {
     <div className="p-4">
       <ul className=''>
         {rooms.map(Room => (
-          <li key={Room.id} className={cn("text-white font-sm py-2 mb-2 text-start hover:cursor-pointer", activeRoom === Room.id && "bg-discord_blue rounded-xl")}>
-            <span onClick={() => setActiveRoom(Room.id)} className="">
-              {Room.name}
-            </span>
+          <li key={Room.id} onClick={() => setActiveRoom(Room.id)} className={cn("text-white font-sm py-2 mb-2 text-start hover:cursor-pointer", activeRoom === Room.id && "bg-discord_blue rounded-xl")}>
+            {Room.name}
           </li>
         ))}
         {/* Add the room creation button */}
         <li key="create-new-room" className="mb-4">
-          <span onClick={ ()=> alert("room created: mock alert")} className="flex flex-row text-white font-sm py-6 text-start hover:cursor-pointer">
+          <span 
+            onClick={ ()=> alert("room created: mock alert")} 
+            className="flex flex-row text-white font-sm py-6 text-start hover:cursor-pointer"
+          >
             <PlusIcon color='white' className='pr-2'/> Create room
           </span>
         </li>
