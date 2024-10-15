@@ -33,7 +33,7 @@ const Home = () => {
           <button 
             className='bg-white p-2 rounded-full text-xs md:text-sm px-4 focus:outline-none hover:shadow-2xl hover:text-discord_blurple
             transition duration-200 ease-in-out whitespace-nowrap font-medium'
-            onClick={!user ? () => router.push("/auth") : () => router.push("/channels")}>
+            onClick={!user ? () => router.push("/auth") : () => router.push("/rooms")}>
             {!user ? "Login" : "Open Chat"}
           </button>
         </div>
@@ -47,12 +47,12 @@ const Home = () => {
             <h1 className=' flex lg:justify-center text-5xl text-white font-bold'>CHATTERBOX</h1>
             <h2 className=' flex lg:justify-center text-white text-lg tracking-wide lg:max-w-3xl w-full text-center font-semibold'>Making it easy to connect with friends, talk every day and hang out more often.</h2>
             <div className=' flex lg:justify-center flex-col sm:flex-row md:flex-col lg:flex-row md:items-start sm:items-center gap-6'>
-                <button className='bg-white p-5 rounded-xl font-bold hover:bg-opacity-95 text-discord_blurple'>
+                <button className='bg-white p-5 rounded-xl font-bold hover:shadow-2xl hover:bg-opacity-95 text-discord_blurple'>
                   Download for Mac
                 </button>
                 <button
-                  className='bg-gray-900 py-5 px-10 rounded-xl font-bold text-white hover:bg-gray-800'
-                  onClick={!user ? () => router.push("/auth") : () => router.push("/channels")}
+                  className='bg-gray-900 py-5 px-10 rounded-xl font-bold hover:shadow-2xl text-white hover:bg-gray-800'
+                  onClick={!user ? () => router.push("/auth") : () => router.push("/rooms")}
                 >
                   Open in browser
                 </button>
