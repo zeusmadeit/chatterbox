@@ -1,22 +1,29 @@
 import React, { useState } from 'react';
 import { auth } from '@/lib/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import { cn } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
 
 const SignIn: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-    } catch (error) {
+      router.push('/rooms');
+    } catch (error: any) {
+      setError(error.message);
       console.error('Error signing in:', error);
     }
   };
 
   return (
-    <form onSubmit={handleSignIn} className="space-y-4">
+    <div className="space-y-4">
       <input
         type="email"
         value={email}
@@ -33,10 +40,15 @@ const SignIn: React.FC = () => {
         className="w-full p-2 border rounded"
         required
       />
-      <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded">
-        Sign In
+      <button
+        type="submit" 
+        onClick={handleSignIn}
+        className={cn("w-full p-2 bg-blue-500 text-white rounded", loading && 'disabled')}
+      >
+        {loading? 'Loading...': 'Sign In'}
       </button>
-    </form>
+      {error && <p className="mt-4 mb-4 text-red-500">{error}</p>}
+    </div>
   );
 };
 

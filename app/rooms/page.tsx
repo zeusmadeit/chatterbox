@@ -9,10 +9,10 @@ export default function ProfilePage() {
     const [user] = useAuthState(auth);
   const router = useRouter();
 
-  if (!user) {
-    router.push('/auth');
-    return null;
-  }
+  // if (!user) {
+  //   router.push('/auth');
+  //   return null;
+  // }
 
   return (
     <Layout>
