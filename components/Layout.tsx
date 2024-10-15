@@ -19,23 +19,26 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
       {/* Channels sidebar */}
       <div className="w-60 bg-[var(--channelsbg)] text-[var(--text-normal)] flex flex-col">
-        <div className="p-4">
+        <div className="flex flex-row p-4 space-x-4 items-center border-b border-gray-700">
           <Icons.EchoBot className='text-white cursor-pointer w=32 h-12 object-contain'/>
+          <span className='font-semibold'>ChatterBox</span>
         </div>
         <nav className="flex-1 overflow-y-auto">
           <RoomList />
         </nav>
         {user ? (
-          <div className="p-4 border-t border-gray-700 flex flex-col justify-center items-center">
-            <img src={user.photoURL || '/default-avatar.png'} alt="User avatar" className="w-8 h-8 rounded-full mr-2" />
-            <span>{user.displayName || user.email}</span>
-            <button onClick={() => signOut(auth)} className="ml-auto text-[var(--text-muted)] hover:text-[var(--text-normal)]">Sign Out</button>
+          <div className="p-4 border-t border-gray-700 flex flex-col justify-center items-center align-center">
+            <div className='flex flex-row justify-center items-center'>
+              <img src={user.photoURL || '/default-avatar.png'} alt="User avatar" className="w-8 h-8 rounded-full mr-2" />
+              <span>{user.displayName || user.email?.split("@")[0]}</span>
+            </div>
+            <button onClick={() => signOut(auth)} className="text-center py-4 text-[var(--text-muted)] font-semibold hover:text-[var(--text-normal)]">Sign Out</button>
           </div>
         ) : ("")}
       </div>
 
       {/* Main content */}
-      <div className="flex-1 overflow-auto">
+      <div className="flex-1 overflow-y-auto">
         {children}
       </div>
     </div>

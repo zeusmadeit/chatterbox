@@ -1,14 +1,15 @@
 'use client';
 
 import ProfileForm from '@/components/ProfileForm';
-import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '@/lib/firebase';
 
 export default function ProfilePage() {
-  const { user, loading } = useAuth();
+  const [user] = useAuthState(auth);
   const router = useRouter();
 
-  if (loading) return <div className="min-h-screen flex items-center justify-center bg-discord-dark">Loading...</div>;
+  // if (loading) return <div className="min-h-screen flex items-center justify-center bg-discord-dark">Loading...</div>;
   if (!user) {
     router.push('/auth');
     return null;
