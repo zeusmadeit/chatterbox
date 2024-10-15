@@ -11,9 +11,14 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        'discord-dark': '#36393f',
-        'discord-light': '#dcddde',
-        'discord-blue': '#7289da',
+        discord_blue: "#404EED",
+        discord_blurple: "#7289da",
+        discord_purple: "#5865f2",
+        discord_green: "#3ba55c",
+        discord_serverbg: "#36393f",
+        discord_serversBG: "#202225",
+        discord_channelsBG: "#2f3136",
+        discord_serverNameHoverBg: "#34373c",
       },
       keyframes: {
         'fade-in-up': {

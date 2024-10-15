@@ -1,101 +1,75 @@
 'use client';
 
-// import { useEffect, useState } from 'react';
-// import { useRouter } from 'next/navigation';
-// import { useAuth } from '@/contexts/AuthContext';
-// import { Column, Row } from '@/components/flex';
-// import { Icons } from '@/components/Icons';
-// import { LoginButton } from '@/components/ui/login-button';
-// import { ButtonLink } from '@/components/ui/button';
-// import { cn } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from "@/lib/firebase"
+import { Icons } from '@/components/Icons';
+import { cn } from '@/lib/utils';
+import Image from 'next/image'
+import robotImage from "@/public/images/robot.svg";
 
-// const HeroBadgeButton = () => {
-//   const router = useRouter();
-//   const { user } = useAuth();
 
-//   return (
-//     <button
-//       type="button"
-//       className={cn(
-//         'border-tra focus-visible:riz-10 group relative z-10 cursor-pointer overflow-hidden rounded-full border-indigo-400/40  bg-indigo-500/20 px-3 py-0.5 pr-1 text-xs font-medium text-indigo-400 outline-none border ring-indigo-900 transition horizontal center',
-//         ' '
-//       )}
-//       onClick={() => {
-//         if (!user) {
-//           router.push('/auth');
-//         } else {
-//           router.push('/chat');
-//         }
-//       }}
-//     >
-//       <div className="relative gap-1 transition duration-300 horizontal center group-hover:-translate-y-5">
-//         Jump Into the Fun
-//         <Icons.ChevronRight className="size-3" />
-//       </div>
+const Home = () => {
+  const [user] = useAuthState(auth);
+  const router = useRouter();
 
-//       <div className="absolute translate-y-5 gap-1 transition duration-300 horizontal center-v group-hover:translate-y-0">
-//         Jump Into the Fun
-//         <Icons.ChevronRight className="size-3" />
-//       </div>
-//     </button>
-//   );
-// };
-
-// const Hero = () => {
-//   return (
-//     <Column className="prose h-full w-full animate-fade-up text-center center animate-delay-75">
-//       <div className="container mx-auto w-full max-w-full px-4 lg:max-w-6xl lg:px-16">
-//         <Column className="mx-auto max-w-[592px] center vertical">
-//           <HeroBadgeButton />
-
-//           <Column className="mt-6 text-balance text-center center-h">
-//             <h1 className="m-0 animate-fade-up text-[52px] animate-delay-75 lg:text-[80px] lg:leading-[76px]">
-//               Make your
-//               <div className="text-indigo-400">words echo</div>
-//             </h1>
-
-//             <p className="mb-0 mt-4 animate-fade-up text-balance text-center animate-delay-100">
-//               Echo your words and create ripples that engage your entire community.
-//             </p>
-//           </Column>
-
-//           <Row className="mt-6 w-full animate-fade-up gap-4 text-foreground center animate-delay-150 lg:mt-8">
-//             <LoginButton className="group" size="xl">
-//               <span className="transition duration-300 group-hover:-translate-x-2">
-//                 Get Started
-//               </span>
-
-//               <Icons.RightArrow className="absolute right-1 size-5 translate-x-full text-current opacity-0 transition duration-300 group-hover:-translate-x-1 group-hover:opacity-100" />
-//             </LoginButton>
-
-//             <ButtonLink
-//               className="group relative size-14 overflow-hidden"
-//               target="_blank"
-//               size="icon"
-//               variant="outline"
-//               color="secondary"
-//               href={'https://github.com/zeusmadeit/chatterbox'}
-//             >
-//               <Icons.GitHub className="size-6 text-current" />
-//             </ButtonLink>
-//           </Row>
-//         </Column>
-//       </div>
-//     </Column>
-//   );
-// };
-
-// export default Hero;
-
-import Layout from '@/components/Layout';
-
-export default function Home() {
   return (
-    <Layout>
-      <div className="p-4">
-        <h1 className="text-2xl font-bold">Welcome to Discord Clone</h1>
-        <p className="mt-2">Start chatting with your friends or join a server!</p>
+    <div className='flex flex-col h-screen overflow-x-hidden bg-discord_blue'>
+      <header className='flex items-center justify-between py-4 px-6 bg-discord_blue'>
+        <a href='/'>
+          {/* <img src='https://svgshare.com/i/tbf.svg' alt='' className='w=32 h-12 object-contain'/> */}
+          <Icons.EchoBot className='text-white cursor-pointer w=32 h-12 object-contain'/>
+        </a>
+        <div className='hidden lg:flex space-x-10 text-white'>
+          <a className='link'>Download</a>
+          <a className='link'>Nitro</a>
+          <a className='link'>Discover</a>
+          <a className='link'>Safety</a>
+          <a className='link'>Support</a>
+          <a className='link'>blog</a>
+          <a className='link'>Careers</a>
+        </div>
+        <div className='flex space-x-4'>
+          <button 
+            className='bg-white p-2 rounded-full text-xs md:text-sm px-4 focus:outline-none hover:shadow-2xl hover:text-discord_blurple
+            transition duration-200 ease-in-out whitespace-nowrap font-medium'
+            onClick={!user ? () => router.push("/auth") : () => router.push("/channels")}>
+            {!user ? "Login" : "Open Chat"}
+          </button>
+        </div>
+      </header>
+      {/* body */}
+      <div 
+        className='flex lg:-top-44 lg:justify-center md:justify-start bg-discord_blue pb-8 md:pb-0'
+      >
+        <div className=' p-7 py-9 h-screen md:h-[72vh] md:flex relative'>
+          <div className=' flex flex-col gap-7 md:max-w-md lg:max-w-none lg:justify-center'>
+            <h1 className=' flex lg:justify-center text-5xl text-white font-bold'>CHATTERBOX</h1>
+            <h2 className=' flex lg:justify-center text-white text-lg tracking-wide lg:max-w-3xl w-full text-center font-semibold'>Making it easy to connect with friends, talk every day and hang out more often.</h2>
+            <div className=' flex lg:justify-center flex-col sm:flex-row md:flex-col lg:flex-row md:items-start sm:items-center gap-6'>
+                <button className='bg-white p-5 rounded-xl font-bold hover:bg-opacity-95 text-discord_blurple'>
+                  Download for Mac
+                </button>
+                <button
+                  className='bg-gray-900 py-5 px-10 rounded-xl font-bold text-white hover:bg-gray-800'
+                  onClick={!user ? () => router.push("/auth") : () => router.push("/channels")}
+                >
+                  Open in browser
+                </button>
+            </div>
+          </div>
+          <Image
+            priority
+            src={robotImage}
+            alt=""
+            className='h-auto'
+          />
+        </div>
       </div>
-    </Layout>
+    
+    </div>
   );
-}
+};
+
+export default Home;
+

@@ -35,3 +35,21 @@ body {
     text-wrap: balance;
   }
 }
+
+/* @layer components {
+  .link {
+      @apply cursor-pointer font-semibold text-white hover:underline text-base;
+  }
+  .heroButton {
+      @apply  bg-white w-60 font-normal flex items-center justify-center rounded-full p-4 text-lg hover:shadow-2xl
+       focus:outline-none transition duration-200 ease-in-out
+  }
+  .server-default {
+      @apply h-12 bg-discord_serverbg rounded-full flex justify-center items-center cursor-pointer hover:rounded-2xl
+      transition-all duration-100
+  }
+  .icon {
+      @ap h-6 text-[#b9bbbe] cursor-pointer hover:text-[#dcddde];
+  }
+} */
+

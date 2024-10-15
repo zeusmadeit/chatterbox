@@ -14,14 +14,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     <div className="flex h-screen bg-[var(--background)]">
-      {/* Servers sidebar */}
-      <div className="w-16 md:w-20 bg-[var(--serversbg)] flex flex-col items-center py-4 space-y-4">
-        {/* Home button */}
-        <Link href="/" className="w-12 h-12 bg-[var(--channelsbg)] rounded-full flex items-center justify-center text-white hover:bg-[var(--text-link)]">
-          H
-        </Link>
-        {/* Server list would go here */}
-      </div>
 
       {/* Channels sidebar */}
       <div className="w-60 bg-[var(--channelsbg)] text-[var(--text-normal)] flex flex-col">
@@ -29,11 +21,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           <h1 className="text-xl font-bold">ChatterBox</h1>
         </div>
         <nav className="flex-1 overflow-y-auto">
-          <Link href="/" className="block p-2 hover:bg-gray-700">Home</Link>
           {user && (
             <>
               <Link href="/servers" className="block p-2 hover:bg-gray-700">Servers</Link>
-              <Link href="/direct-messages" className="block p-2 hover:bg-gray-700">Direct Messages</Link>
             </>
           )}
         </nav>
