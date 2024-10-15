@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { collection, onSnapshot } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { PlusIcon } from 'lucide-react';
+import { useRoomStore } from '@/contexts/RoomStore';
+import { cn } from '@/lib/utils';
 
 interface Room {
   id: string;
@@ -10,6 +12,8 @@ interface Room {
 
 const RoomList: React.FC = () => {
   const [rooms, setRooms] = useState<Room[]>([]);
+  const setActiveRoom = useRoomStore((state) => state.setActiveRoom)
+  const activeRoom = useRoomStore((state) => state.activeRoom)
 
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, 'rooms'), (snapshot) => {
@@ -21,19 +25,18 @@ const RoomList: React.FC = () => {
 
   return (
     <div className="p-4">
-      {/* <h2 className="text-xl font-bold mb-2">rooms</h2> */}
-      <ul className='space-y-4'>
+      <ul className=''>
         {rooms.map(Room => (
-          <li key={Room.id} className="mb-4">
-            <a href={`/rooms/${Room.id}`} className="text-white font-bold p-6 bg-blue-400 justify-center text-center rounded-full hover:rounded-xl">
-              {Room.name.charAt(0).toUpperCase()}
-            </a>
+          <li key={Room.id} className={cn("text-white font-sm py-2 mb-2 text-start hover:cursor-pointer", activeRoom === Room.id && "bg-discord_blue rounded-xl")}>
+            <span onClick={() => setActiveRoom(Room.id)} className="">
+              {Room.name}
+            </span>
           </li>
         ))}
         {/* Add the room creation button */}
         <li key="create-new-room" className="mb-4">
-          <span onClick={ ()=> alert("room created: mock alert")} className="text-white font-bold p-6 bg-blue-400 justify-center text-center rounded-full hover:rounded-xl">
-            <PlusIcon color='white'/>
+          <span onClick={ ()=> alert("room created: mock alert")} className="flex flex-row text-white font-sm py-6 text-start hover:cursor-pointer">
+            <PlusIcon color='white' className='pr-2'/> Create room
           </span>
         </li>
       </ul>

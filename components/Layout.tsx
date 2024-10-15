@@ -27,12 +27,19 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           <RoomList />
         </nav>
         {user ? (
-          <div className="p-4 border-t border-gray-700 flex flex-col justify-center items-center align-center">
-            <div className='flex flex-row justify-center items-center'>
-              <img src={user.photoURL || '/default-avatar.png'} alt="User avatar" className="w-8 h-8 rounded-full mr-2" />
-              <span>{user.displayName || user.email?.split("@")[0]}</span>
+          <div className="p-4 border-t border-gray-700 flex flex-col">
+            <div className='flex flex-row justify-between items-center space-x-3'>
+              <span className="flex flex-row items-center space-x-4">
+                <img src={user.photoURL || '/default-avatar.png'} alt="User avatar" className="w-6 h-6 rounded-full mr-2" />
+                <span>{user.displayName || user.email?.split("@")[0]}</span>
+              </span>
+              <Icons.Settings className="opacity-70 w-4 h-4 hover:cursor-pointer" />
             </div>
-            <button onClick={() => signOut(auth)} className="text-center py-4 text-[var(--text-muted)] font-semibold hover:text-[var(--text-normal)]">Sign Out</button>
+            <div className="flex flex-col justify-center items-center align-center">
+              <button onClick={() => signOut(auth)} className="text-center py-4 text-[var(--text-muted)] font-semibold hover:text-red-400">
+                Sign Out
+              </button>
+            </div>
           </div>
         ) : ("")}
       </div>
