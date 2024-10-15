@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { auth } from '@/lib/firebase';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 
 const SignUp: React.FC = ({onChangeIsSignIn}:any) => {
+  const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -15,7 +16,7 @@ const SignUp: React.FC = ({onChangeIsSignIn}:any) => {
     e.preventDefault();
     setLoading(true);
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      await createUserWithEmailAndPassword(email, password);
       onChangeIsSignIn();
     } catch (error: any) {
       setError(error.message);

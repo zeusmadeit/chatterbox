@@ -1,6 +1,8 @@
 'use client';
 
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { useRouter } from 'next/navigation';
+import { auth } from '@/lib/firebase';
 import { useAuth } from '@/contexts/AuthContext';
 
 import { Button, ButtonProps } from '@/components/ui/button';
@@ -12,7 +14,7 @@ export const LoginButton = ({
   ...props
 }: React.PropsWithChildren<ButtonProps>) => {
   const router = useRouter();
-  const { user } = useAuth();
+  const [user] = useAuthState(auth);
 
   return (
     <Button

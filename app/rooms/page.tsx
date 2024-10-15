@@ -6,13 +6,13 @@ import { auth } from '@/lib/firebase';
 import Layout from '@/components/Layout';
 
 export default function ProfilePage() {
-    const [user] = useAuthState(auth);
+  const [user] = useAuthState(auth);
   const router = useRouter();
 
-  // if (!user) {
-  //   router.push('/auth');
-  //   return null;
-  // }
+  if (!user) {
+    router.push('/auth');
+    return null;
+  }
 
   return (
     <Layout>

@@ -1,5 +1,4 @@
 import React, { ReactNode, useEffect, useState } from 'react';
-import Link from 'next/link';
 import { collection, onSnapshot } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';

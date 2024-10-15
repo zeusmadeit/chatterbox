@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { auth } from '@/lib/firebase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 
 const SignIn: React.FC = () => {
+  const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -14,7 +15,7 @@ const SignIn: React.FC = () => {
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(email, password);
       router.push('/rooms');
     } catch (error: any) {
       setError(error.message);

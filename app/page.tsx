@@ -17,7 +17,6 @@ const Home = () => {
     <div className='flex flex-col h-screen overflow-x-hidden bg-discord_blue'>
       <header className='flex items-center justify-between py-4 px-6 bg-discord_blue'>
         <a href='/'>
-          {/* <img src='https://svgshare.com/i/tbf.svg' alt='' className='w=32 h-12 object-contain'/> */}
           <Icons.EchoBot className='text-white cursor-pointer w=32 h-12 object-contain'/>
         </a>
         <div className='hidden lg:flex space-x-10 text-white'>
@@ -39,9 +38,7 @@ const Home = () => {
         </div>
       </header>
       {/* body */}
-      <div 
-        className='flex lg:-top-44 lg:justify-center md:justify-start bg-discord_blue pb-8 md:pb-0'
-      >
+      <div className='flex lg:-top-44 lg:justify-center md:justify-start bg-discord_blue pb-8 md:pb-0'>
         <div className=' p-7 py-9 h-screen md:h-[72vh] md:flex relative'>
           <div className=' flex flex-col gap-7 md:max-w-md lg:max-w-none lg:justify-center'>
             <h1 className=' flex lg:justify-center text-5xl text-white font-bold'>CHATTERBOX</h1>
