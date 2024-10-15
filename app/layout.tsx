@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} bg-discord-dark text-discord-light antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} text-discord-light antialiased`}
       >
         <AuthProvider>
           {children}
