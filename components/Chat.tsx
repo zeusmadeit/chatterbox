@@ -6,12 +6,14 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import {auth, db} from "@/lib/firebase"
 import firebase from 'firebase/compat/app';
 import Message from '@/components/Message';
+import { getFile, uploadFile } from "@/lib/utils";
 
 
 interface Message {
     id: string;
     name: string;
     photoURL: string;
+    mediaImage: string;
     email: string;
     message: string;
     userId: string;
@@ -25,6 +27,9 @@ function Chat() {
     const chatRef = useRef<null | HTMLDivElement>(null); // Ref for scrolling to bottom
     const [messages, setMessages] = useState<Message[]>([]); // State for messages
     const messagesEndRef = useRef<null | HTMLDivElement>(null); // Ref for scrolling to bottom
+    // file upload
+    const [selectedFile, setSelectedFile] = useState<File | undefined | null>(null);
+    const fileRef = useRef(null);
 
     useEffect(() => {
         if(activeRoomID){
@@ -51,15 +56,28 @@ function Chat() {
         chatRef.current?.scrollIntoView({ behavior: "smooth", block: "start"});
     }
 
+    const handleUpload = async () => {
+        const folder = "uploads/";
+        if(!selectedFile){
+            return null;
+        }
+        const imagePath = await uploadFile(selectedFile, folder);
+        const imageUrl = await getFile(imagePath);
+        return (imageUrl);
+    };
+
     const sendMessage = async (e: any) => {
         e.preventDefault();
         if (newMessage !== "" && user && activeRoomID) {
+            const imageUrl = selectedFile? await handleUpload() : null;
+            setSelectedFile(null);
             const messagesRef = collection(db, 'rooms', activeRoomID, 'messages');
             await addDoc(messagesRef, {
                 timestamp: new Date(),
                 message: newMessage,
                 name: user?.displayName,
                 photoURL: user?.photoURL,
+                mediaImage: imageUrl,
                 email: user?.email,
                 userId: user?.uid
             });
@@ -91,7 +109,7 @@ function Chat() {
 
       <main className='flex-grow overflow-y-scroll scrollbar-hide'>
         {messages?.map((doc) => {
-            const {message, timestamp, name, photoURL, email} = doc;
+            const {message, timestamp, name, photoURL, mediaImage, email} = doc;
 
             return (
                 <Message 
@@ -102,14 +120,19 @@ function Chat() {
                     name={name? name : email}
                     email={email}
                     photoURL={photoURL}
+                    mediaImage={mediaImage}
                 />
             );
         })}
         <div ref={chatRef} className='pb-16'/>
+        {selectedFile && <img src={URL.createObjectURL(selectedFile)} className="my-5 max-w-[400px]" />}
       </main>
 
       <div className='flex items-center p-2.5 bg-[#40444b] mx-5 mb-7 rounded-lg'>
-        <PlusCircleIcon className='icon mr-4 h-6 text-[#72767d]'/>
+        <div className='flex items-center space-x-4'>
+            <input type="file" ref={fileRef} className="hidden" onChange={(e) => {setSelectedFile(e?.target?.files?.[0]);}}/>
+            <PlusCircleIcon className='icon mr-4 h-6 text-[#72767d]'/>
+        </div>
         <form onSubmit={sendMessage} className='flex-grow'>
             <input 
                 type='text' 
