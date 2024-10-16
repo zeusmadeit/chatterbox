@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { collection, onSnapshot } from 'firebase/firestore';
+import { collection, addDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { PlusIcon } from 'lucide-react';
 import { HashtagIcon } from '@heroicons/react/outline';
@@ -24,6 +24,14 @@ const RoomList: React.FC = () => {
     return () => unsubscribe();
   }, []);
 
+  const createRoom = async () => {
+    const newRoomName = prompt("Enter a new channel name")
+
+    if (newRoomName?.trim()) {
+      await addDoc(collection(db, 'rooms'), { name: newRoomName });
+    }
+  };
+
   return (
     <div className="p-4">
       <ul className=''>
@@ -35,7 +43,7 @@ const RoomList: React.FC = () => {
         {/* Add the room creation button */}
         <li key="create-new-room" className="mb-4">
           <span 
-            onClick={ ()=> alert("room created: mock alert")} 
+            onClick={createRoom} 
             className="flex flex-row text-white font-sm py-6 text-start hover:cursor-pointer"
           >
             <PlusIcon color='white' className='pr-2'/> Create room
