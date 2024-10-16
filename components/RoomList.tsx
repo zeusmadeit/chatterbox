@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { collection, addDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { PlusIcon } from 'lucide-react';
-import { HashtagIcon } from '@heroicons/react/outline';
+import { HashtagIcon } from '@heroicons/react/20/solid';
 import { useRoomStore } from '@/contexts/RoomStore';
 import { cn } from '@/lib/utils';
 

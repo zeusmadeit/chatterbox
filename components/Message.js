@@ -1,7 +1,7 @@
 import React from 'react'
 import moment from 'moment/moment';
 import {useRoomStore} from "@/contexts/RoomStore";
-import { TrashIcon } from '@heroicons/react/outline';
+import { TrashIcon } from '@heroicons/react/20/solid';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import {auth, db} from "@/lib/firebase"
 
