@@ -9,7 +9,7 @@ import { Button, ButtonProps } from '@/components/ui/button';
 export const LoginButton = ({
   disabled,
   color = 'white',
-  onClick,
+  // onClick,
   ...props
 }: React.PropsWithChildren<ButtonProps>) => {
   const router = useRouter();
@@ -21,7 +21,7 @@ export const LoginButton = ({
         e.preventDefault();
 
         if (user) {
-          router.push('/chat');
+          router.push('/rooms');
         } else {
             router.push('/auth');
         }

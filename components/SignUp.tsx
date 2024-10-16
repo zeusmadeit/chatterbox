@@ -1,16 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from 'react';
 import { auth } from '@/lib/firebase';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { cn } from '@/lib/utils';
-import { useRouter } from 'next/navigation';
 
-const SignUp: React.FC = ({onChangeIsSignIn}:any) => {
+const SignUp: React.FC = ({onChangeIsSignIn}: any) => {
   const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();

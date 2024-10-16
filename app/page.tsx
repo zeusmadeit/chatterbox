@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from "@/lib/firebase"
 import { Icons } from '@/components/Icons';
-import { cn } from '@/lib/utils';
+// import { cn } from '@/lib/utils';
 import Image from 'next/image'
 import robotImage from "@/public/images/robot.svg";
 
