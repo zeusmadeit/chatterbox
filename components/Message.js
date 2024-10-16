@@ -3,11 +3,19 @@ import moment from 'moment/moment';
 import {useRoomStore} from "@/contexts/RoomStore";
 import { TrashIcon } from '@heroicons/react/20/solid';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { doc, deleteDoc } from "firebase/firestore";
 import {auth, db} from "@/lib/firebase"
 
 function Message({id, message, timestamp, name, email, photoURL}) {
-    const {activeRoomID} = useRoomStore();
-    const [user] = useAuthState(auth);
+  const {activeRoomID} = useRoomStore();
+  const [user] = useAuthState(auth);
+
+  const deleteMessage = async (messageId) => {
+    if (user && activeRoomID) {
+      const messageDocRef = doc(db, 'rooms', activeRoomID, 'messages', messageId);
+      await deleteDoc(messageDocRef);
+    }
+  };
 
   return (
     <div className='flex items-center p-1 pl-5 my5 mr-2 hover:bg-[#32353b] group'>
@@ -24,7 +32,7 @@ function Message({id, message, timestamp, name, email, photoURL}) {
       {user?.email === email && (
         <div 
             className='hover:bg-[#ed4245] p-1 ml-auto rounded-sm text-[#ed4245] hover:text-white cursor-pointer' 
-            onClick={() => db.collection("rooms").doc(activeRoomID).collection("messages").doc(id).delete()}
+            onClick={() => deleteMessage(id)}
         >
             <TrashIcon className='h-5 hidden group-hover:inline'/>
         </div>

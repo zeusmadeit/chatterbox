@@ -63,9 +63,8 @@ function Chat() {
                 email: user?.email,
                 userId: user?.uid
             });
+            setNewMessage("");
         }
-
-        setNewMessage("");
         scrollToBottom();
     }
 

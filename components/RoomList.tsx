@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { collection, addDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { PlusIcon } from 'lucide-react';
-import { HashtagIcon } from '@heroicons/react/20/solid';
+// import { HashtagIcon } from '@heroicons/react/20/solid';
 import { useRoomStore } from '@/contexts/RoomStore';
 import { cn } from '@/lib/utils';
 
@@ -33,15 +33,15 @@ const RoomList: React.FC = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="">
       <ul className=''>
         {rooms.map(Room => (
-          <li key={Room.id} onClick={() => setActiveRoom(Room.id, Room.name)} className={cn("flex flex-row font-sm py-2 mb-2 text-start hover:cursor-pointer", activeRoom === Room.id? "text-discord_blue opacity-100":"text-white opacity-80")}>
-            <HashtagIcon className='h-5 mr-2' /> {Room.name}
+          <li key={Room.id} onClick={() => setActiveRoom(Room.id, Room.name)} className={cn("flex flex-row font-sm p-4 py-2 mb-2 text-white text-start hover:cursor-pointer", activeRoom === Room.id? "bg-gray-500 bg-opacity-60 rounded-sm opacity-100":"opacity-80")}>
+            {Room.name.length > 18 ? Room.name.slice(0, 18) + "...." : Room.name}
           </li>
         ))}
         {/* Add the room creation button */}
-        <li key="create-new-room" className="mb-4">
+        <li key="create-new-room" className="p-4 mb-4">
           <span 
             onClick={createRoom} 
             className="flex flex-row text-white font-sm py-6 text-start hover:cursor-pointer"
