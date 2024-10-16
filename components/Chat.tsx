@@ -6,6 +6,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import {auth, db} from "@/lib/firebase"
 import Message from '@/components/Message';
 import { getFile, uploadFile } from "@/lib/utils";
+import { Icons } from '@/components/Icons';
 
 
 interface Message {
@@ -74,12 +75,10 @@ function Chat() {
             const imageUrl = selectedFile? await handleUpload() : null;
             setSelectedFile(null);
             const messagesRef = collection(db, 'rooms', activeRoomID, 'messages');
-            // Copy the message and clear the input to give the user a reactive feedback
-            const message_copy = newMessage;
             setNewMessage("");
             await addDoc(messagesRef, {
                 timestamp: new Date(),
-                message: message_copy,
+                message: newMessage,
                 name: user?.displayName,
                 photoURL: user?.photoURL,
                 mediaImage: imageUrl,
@@ -133,9 +132,9 @@ function Chat() {
 
       <div className='flex items-center p-2.5 bg-[#40444b] mx-5 mb-7 rounded-lg'>
         {selectedFile? (
-            <div className="flex flex-row p-2 space-x-2 items-center rounded-lg text-white bg-gray-500 cursor-pointer">
+            <div className="flex flex-row p-2 mr-2 space-x-2 items-center rounded-lg text-white bg-gray-500 cursor-pointer">
                 <img src={URL.createObjectURL(selectedFile)} className="max-h-8 max-w-8" />
-                <span className="text-red-400 text-sm">X</span>
+                <Icons.X onClick={()=> setSelectedFile(null)} className="h-4 text-red-400"/>
             </div>
         ) : (
             <div 
