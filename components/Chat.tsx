@@ -4,7 +4,6 @@ import {useRoomStore} from "@/contexts/RoomStore";
 import { collection, onSnapshot, addDoc, query, orderBy, limit } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import {auth, db} from "@/lib/firebase"
-import firebase from 'firebase/compat/app';
 import Message from '@/components/Message';
 import { getFile, uploadFile } from "@/lib/utils";
 
@@ -26,10 +25,13 @@ function Chat() {
     const [newMessage, setNewMessage] = useState(''); // State for the new message
     const chatRef = useRef<null | HTMLDivElement>(null); // Ref for scrolling to bottom
     const [messages, setMessages] = useState<Message[]>([]); // State for messages
-    const messagesEndRef = useRef<null | HTMLDivElement>(null); // Ref for scrolling to bottom
-    // file upload
+    const messagesEndRef = useRef<null | HTMLDivElement>(null); // Ref for auto scrolling to bottom
     const [selectedFile, setSelectedFile] = useState<File | undefined | null>(null);
-    const fileRef = useRef(null);
+    const fileRef = useRef<any>(null);
+
+    const handleFileInputClick = () => {
+        fileRef.current.click(); // open file dialog
+    };
 
     useEffect(() => {
         if(activeRoomID){
@@ -72,16 +74,18 @@ function Chat() {
             const imageUrl = selectedFile? await handleUpload() : null;
             setSelectedFile(null);
             const messagesRef = collection(db, 'rooms', activeRoomID, 'messages');
+            // Copy the message and clear the input to give the user a reactive feedback
+            const message_copy = newMessage;
+            setNewMessage("");
             await addDoc(messagesRef, {
                 timestamp: new Date(),
-                message: newMessage,
+                message: message_copy,
                 name: user?.displayName,
                 photoURL: user?.photoURL,
                 mediaImage: imageUrl,
                 email: user?.email,
                 userId: user?.uid
             });
-            setNewMessage("");
         }
         scrollToBottom();
     }
@@ -125,14 +129,24 @@ function Chat() {
             );
         })}
         <div ref={chatRef} className='pb-16'/>
-        {selectedFile && <img src={URL.createObjectURL(selectedFile)} className="my-5 max-w-[400px]" />}
       </main>
 
       <div className='flex items-center p-2.5 bg-[#40444b] mx-5 mb-7 rounded-lg'>
-        <div className='flex items-center space-x-4'>
-            <input type="file" ref={fileRef} className="hidden" onChange={(e) => {setSelectedFile(e?.target?.files?.[0]);}}/>
-            <PlusCircleIcon className='icon mr-4 h-6 text-[#72767d]'/>
-        </div>
+        {selectedFile? (
+            <div className="flex flex-row p-2 space-x-2 items-center rounded-lg text-white bg-gray-500 cursor-pointer">
+                <img src={URL.createObjectURL(selectedFile)} className="max-h-8 max-w-8" />
+                <span className="text-red-400 text-sm">X</span>
+            </div>
+        ) : (
+            <div 
+                onClick={handleFileInputClick}
+                className='p-2 rounded-lg text-[#72767d] hover:text-white hover:bg-gray-500 cursor-pointer'
+            >
+                <input type="file" ref={fileRef} className="hidden " onChange={(e) => {setSelectedFile(e?.target?.files?.[0])}}/>
+                <PlusCircleIcon className='icon h-6'/>
+            </div>
+        )}
+        
         <form onSubmit={sendMessage} className='flex-grow'>
             <input 
                 type='text' 
@@ -140,7 +154,7 @@ function Chat() {
                 placeholder={activeRoomID ? `Message #${activeRoomName}` : "Select a Channel"}
                 value={newMessage}
                 onChange={(e) => setNewMessage(e.target.value)}
-                className='bg-transparent focus:outline-none text-[#dcddde] w-full placeholder-[#72767d] text-sm' 
+                className='pl-1 bg-transparent focus:outline-none text-[#dcddde] w-full placeholder-[#72767d] text-sm' 
             />
             <button hidden type='submit' onClick={sendMessage}>
                 Send

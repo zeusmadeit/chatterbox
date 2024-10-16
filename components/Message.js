@@ -38,7 +38,7 @@ function Message({id, message, timestamp, name, email, photoURL, mediaImage}) {
           </div>
         )}
       </div>
-      <img src={mediaImage} alt='' className="max-h-40"/>
+      {mediaImage && <img src={mediaImage} alt='' className="max-w-[180px] pb-5"/>}
     </div>
   )
 }
