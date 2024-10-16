@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from 'react';
 import { auth } from '@/lib/firebase';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
@@ -14,13 +15,16 @@ const SignIn: React.FC = () => {
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     try {
       await signInWithEmailAndPassword(email, password);
+      setLoading(false);
       router.push('/rooms');
     } catch (error: any) {
       setError(error.message);
       console.error('Error signing in:', error);
     }
+    setLoading(false);
   };
 
   return (

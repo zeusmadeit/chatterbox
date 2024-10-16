@@ -1,6 +1,4 @@
-import React, { ReactNode, useEffect, useState } from 'react';
-import { collection, onSnapshot } from 'firebase/firestore';
-import { db } from '@/lib/firebase';
+import React, { ReactNode } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/lib/firebase';
 import { Icons } from '@/components/Icons';

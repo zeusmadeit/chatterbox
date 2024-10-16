@@ -1,12 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useRouter } from 'next/navigation';
 import { auth } from '@/lib/firebase';
 import SignIn from '@/components/SignIn';
 import SignUp from '@/components/SignUp';
-import { Icons } from '@/components/Icons';
 
 export default function Auth() {
   const [user] = useAuthState(auth);
