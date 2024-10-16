@@ -22,7 +22,7 @@ function Message({id, message, timestamp, name, email, photoURL, mediaImage}) {
   return (
     <div className="flex flex-col space-y-2">
       <div className='flex items-center p-1 pl-5 my5 mr-2 hover:bg-[#32353b] group'>
-        <img src={photoURL? photoURL : DefaultProfileImage} alt='' className='h-10 rounded-full cursor-pointer mr-3 hover:shadow-2xl'/>
+        <img src={photoURL} alt='' className='h-8 w-8 rounded-full cursor-pointer mr-4 hover:shadow-2xl'/>
         <div className='flex flex-col '>
           <h4 className='flex items-center space-x-2 font-medium'>
               <span className='hover:underline text-[#dddfe0] text-sm cursor-pointer'>{name}</span>
@@ -40,7 +40,9 @@ function Message({id, message, timestamp, name, email, photoURL, mediaImage}) {
           </div>
         )}
       </div>
-      {mediaImage && <img src={mediaImage} alt='' className="max-w-[180px] pb-5"/>}
+      <div className="pl-7">
+        {mediaImage && <img src={mediaImage} alt='' className="pr-12 max-w-[180px] pb-5"/>}
+      </div>
     </div>
   )
 }

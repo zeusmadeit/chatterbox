@@ -24,6 +24,7 @@ function Chat() {
     const {activeRoomID, activeRoomName} = useRoomStore();
     const [user] = useAuthState(auth);
     const [newMessage, setNewMessage] = useState(''); // State for the new message
+    const [sendingMessage, setSendingMessage] = useState(false); // State for the new message
     const chatRef = useRef<null | HTMLDivElement>(null); // Ref for scrolling to bottom
     const [messages, setMessages] = useState<Message[]>([]); // State for messages
     const messagesEndRef = useRef<null | HTMLDivElement>(null); // Ref for auto scrolling to bottom
@@ -72,10 +73,10 @@ function Chat() {
     const sendMessage = async (e: any) => {
         e.preventDefault();
         if (newMessage !== "" && user && activeRoomID) {
+            setSendingMessage(true);
             const imageUrl = selectedFile? await handleUpload() : null;
             setSelectedFile(null);
             const messagesRef = collection(db, 'rooms', activeRoomID, 'messages');
-            setNewMessage("");
             await addDoc(messagesRef, {
                 timestamp: new Date(),
                 message: newMessage,
@@ -85,6 +86,8 @@ function Chat() {
                 email: user?.email,
                 userId: user?.uid
             });
+            setNewMessage("");
+            setSendingMessage(false);
         }
         scrollToBottom();
     }
@@ -149,7 +152,7 @@ function Chat() {
         <form onSubmit={sendMessage} className='flex-grow'>
             <input 
                 type='text' 
-                disabled={!activeRoomID} 
+                disabled={!activeRoomID || sendingMessage} 
                 placeholder={activeRoomID ? `Message #${activeRoomName}` : "Select a Channel"}
                 value={newMessage}
                 onChange={(e) => setNewMessage(e.target.value)}
