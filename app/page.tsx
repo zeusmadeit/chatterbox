@@ -30,7 +30,7 @@ const Home = () => {
         </div>
         <div className='flex space-x-4'>
           <button 
-            className='bg-white p-2 rounded-full text-xs md:text-sm px-4 focus:outline-none hover:shadow-2xl hover:text-discord_blurple
+            className='bg-white text-discord_blue p-2 rounded-full text-xs md:text-sm px-4 focus:outline-none hover:shadow-2xl hover:text-discord_blurple
             transition duration-200 ease-in-out whitespace-nowrap font-medium'
             onClick={!user ? () => router.push("/auth") : () => router.push("/rooms")}>
             {!user ? "Login" : "Open Chat"}

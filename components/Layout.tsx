@@ -1,3 +1,5 @@
+"use client";
+
 import React, { ReactNode } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/lib/firebase';
@@ -5,7 +7,7 @@ import { Icons } from '@/components/Icons';
 import { signOut } from 'firebase/auth';
 import RoomList from '@/components/RoomList';
 import { useRouter, usePathname } from 'next/navigation';
-import default_profile_pic from '@/public/images/default-profile-pic.jpg';
+// import default_profile_pic from '@/public/images/default-profile-pic.jpg';
 
 interface LayoutProps {
   children: ReactNode;
@@ -43,7 +45,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           <div className="p-4 border-t border-gray-700 flex flex-col">
             <div className='flex flex-row justify-between items-center space-x-3'>
               <span className="flex flex-row items-center space-x-4">
-                <img src={user.photoURL? user.photoURL : default_profile_pic} alt="" className="w-6 h-6 rounded-full mr-2" />
+                <img src={user.photoURL? user.photoURL : ""} alt="" className="w-6 h-6 rounded-full mr-2" />
                 <span>{user.displayName || user.email?.split("@")[0]}</span>
               </span>
               <div className="p-2 bg-gray-500 rounded-lg cursor-pointer" onClick={handleDisplayProfile}>

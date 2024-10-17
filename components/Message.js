@@ -5,7 +5,7 @@ import { TrashIcon } from '@heroicons/react/20/solid';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { doc, deleteDoc } from "firebase/firestore";
 import {auth, db} from "@/lib/firebase";
-import DefaultProfileImage from '@/public/images/default-profile-pic.jpg';
+// import DefaultProfileImage from '@/public/images/default-profile-pic.jpg';
 
 
 function Message({id, message, timestamp, name, email, photoURL, mediaImage}) {

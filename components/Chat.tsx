@@ -1,4 +1,4 @@
-import { BellIcon, ChatBubbleBottomCenterIcon, HashtagIcon, InboxIcon, QuestionMarkCircleIcon, MagnifyingGlassIcon, UsersIcon, PlusCircleIcon, ArrowRightCircleIcon } from '@heroicons/react/20/solid';
+import { BellIcon, HashtagIcon, InboxIcon, QuestionMarkCircleIcon, MagnifyingGlassIcon, UsersIcon, PlusCircleIcon, ArrowRightCircleIcon } from '@heroicons/react/20/solid';
 import React, { useRef, useState, useEffect } from 'react'
 import {useRoomStore} from "@/contexts/RoomStore";
 import { collection, onSnapshot, addDoc, query, orderBy, limit } from 'firebase/firestore';
@@ -136,7 +136,7 @@ function Chat() {
       <div className='flex items-center p-2.5 bg-[#40444b] mx-5 mb-7 rounded-lg'>
         {selectedFile? (
             <div className="flex flex-row p-2 mr-2 space-x-2 items-center rounded-lg text-white bg-gray-500 cursor-pointer">
-                <img src={URL.createObjectURL(selectedFile)} className="max-h-8 max-w-8" />
+                <img src={URL.createObjectURL(selectedFile)} alt='' className="max-h-8 max-w-8" />
                 <Icons.X onClick={()=> setSelectedFile(null)} className="h-4 text-red-400"/>
             </div>
         ) : (

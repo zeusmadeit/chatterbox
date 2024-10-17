@@ -1,7 +1,6 @@
 import { useState, useRef } from 'react';
-import { auth, db } from '@/lib/firebase';
+import { auth } from '@/lib/firebase';
 import { updateProfile } from 'firebase/auth';
-import { doc, updateDoc } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { uploadFile, getFile } from '@/lib/utils';
 
@@ -15,7 +14,7 @@ export default function ProfileForm() {
   const [selectedFile, setSelectedFile] = useState(null);
   const fileRef = useRef(null);
 
-  const handleUpload = async (e) => {
+  const handleUpload = async () => {
     const folder = "avatars/";
     if (selectedFile) {
       const imagePath = await uploadFile(selectedFile, folder);
@@ -54,7 +53,11 @@ export default function ProfileForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      {user?.photoURL && <div className="flex flex-row items-center justify-center"> <img src={user.photoURL} className="my-5 max-h-[140px] max-w-[140px] rounded-full"/> </div>}
+      {user?.photoURL && (
+        <div className="flex flex-row items-center justify-center">
+          <img src={user.photoURL} alt='' className="my-5 max-h-[140px] max-w-[140px] rounded-full"/>
+        </div>
+      )}
       <div>
         <label htmlFor="profilePic" className="block text-sm font-medium text-[var(--text-normal)] mb-1">
           Update Profile Picture

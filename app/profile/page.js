@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import {useRoomStore} from "@/contexts/RoomStore";
 import { auth } from '@/lib/firebase';
-import { cn } from '@/lib/utils';
 import Layout from '@/components/Layout';
 
 export default function ProfilePage() {
