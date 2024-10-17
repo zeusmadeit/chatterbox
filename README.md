@@ -6,7 +6,6 @@ ChatterBox is a modern chat application built with Next.js and Firebase.
 + User authentication
 + Room creation and management
 + Profile updates
-+ Getting Started
 
 ### Getting Started
 ##### Prerequisites
